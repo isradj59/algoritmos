@@ -1,6 +1,9 @@
 Miembros del equipo:
 
 A01638258 Enrique Israel Delgado Joaquin
+  - creació de archivos de input
+  - creacion del algoritmo que encuentra palindromos
+  - ayude a la creacion del algoritmo kmp
 A01638129 Andres Olvera Rodriguez
 A01630791 Oscar Miranda Escalante
   - creación de archivos de input
