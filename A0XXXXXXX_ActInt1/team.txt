@@ -5,6 +5,8 @@ A01638258 Enrique Israel Delgado Joaquin
   - creacion del algoritmo que encuentra palindromos
   - ayude a la creacion del algoritmo kmp
 A01638129 Andres Olvera Rodriguez
+  - algoritmo para leer archivos
+  - ayude a la creacion del algoritmo kmp
 A01630791 Oscar Miranda Escalante
   - creación de archivos de input
   - principalmente algoritmo de parte 3 (lcs)
