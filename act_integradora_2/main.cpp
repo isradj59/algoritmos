@@ -12,6 +12,12 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <climits>
+#include <queue>
+#include <algorithm>
+
+ // #include <unistd.h>
+
 using namespace std;
 
 struct Point {
@@ -94,6 +100,12 @@ public:
     file.close();
   }
 
+  Data(vector<vector<int>> distancias, vector<vector<int>> capacidades, vector<Point> ubicaciones) {
+    this->distancias = distancias;
+    this->capacidades = capacidades;
+    this->ubicaciones = ubicaciones;
+  }
+
   void printDistancias() const {
     printMatrix(this->distancias);
   }
@@ -153,11 +165,79 @@ void funcionEjemplo(const Data& d) {
   int y = p.y;
 }
 
+bool augmentingPathExists(const vector<vector<int>>& residual, vector<int>& path) {
+  int n = residual.size();
+  vector<bool> visited(n, false);
+  queue<int> q;
+
+  q.push(0);
+  visited[0] = true;
+
+  path[0] = 0;
+
+  while (!q.empty()) {
+    int current = q.front();
+    q.pop();
+
+    for (int i = 0; i < n; i++) {
+      if (!visited[i] && residual[current][i] > 0) {
+        path[i] = current;
+        // si llega a "t" (n-1), sí existe un augmenting path
+        if (i == n - 1) return true;
+        q.push(i);
+        visited[i] = true;
+      }
+    }
+  }
+
+  return false;
+}
+
+void fordFulkerson(const Data& d) {
+  vector<vector<int>> residual = d.getCapacidades();
+
+  int n = residual.size();
+  vector<int> path(n);
+
+  int maxFlux = 0;
+
+  while (augmentingPathExists(residual, path)) {
+    int minCap = INT_MAX;
+    int pathIndex = n - 1;
+
+    while (pathIndex != 0) {
+      minCap = min(minCap, residual[path[pathIndex]][pathIndex]);
+      pathIndex = path[pathIndex];
+    }
+
+    maxFlux += minCap;
+
+    pathIndex = n - 1;
+    while (pathIndex != 0) {
+      residual[path[pathIndex]][pathIndex] -= minCap;
+      residual[pathIndex][path[pathIndex]] += minCap;
+      pathIndex = path[pathIndex];
+    }
+  }
+
+  cout << "- Max flux is: " << maxFlux << endl;
+};
 
 int main() {
   Data data;
 
-
+  fordFulkerson(data);
 
   return 0;
 }
+
+
+
+/*
+  vector<vector<int>> test{
+    {0, 10, 3, 0},
+    {0, 0, 0, 5},
+    {0, 0, 0, 4},
+    {0, 0, 0, 0}
+  };
+*/
