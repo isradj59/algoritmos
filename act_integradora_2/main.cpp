@@ -16,7 +16,6 @@
 #include <queue>
 #include <algorithm>
 
- // #include <unistd.h>
 
 using namespace std;
 
@@ -220,7 +219,7 @@ void fordFulkerson(const Data& d) {
     }
   }
 
-  cout << "- Max flux is: " << maxFlux << endl;
+  cout << "Max flux is: " << maxFlux << endl;
 };
 
 int main() {
@@ -230,14 +229,3 @@ int main() {
 
   return 0;
 }
-
-
-
-/*
-  vector<vector<int>> test{
-    {0, 10, 3, 0},
-    {0, 0, 0, 5},
-    {0, 0, 0, 4},
-    {0, 0, 0, 0}
-  };
-*/

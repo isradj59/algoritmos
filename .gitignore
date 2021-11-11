@@ -1,3 +1,6 @@
 launch.json
 tasks.json
 main
+build
+
+.DS_store
