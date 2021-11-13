@@ -1,0 +1,1 @@
+distanciasrecorridas[camino][3]==0

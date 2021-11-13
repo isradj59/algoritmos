@@ -57,7 +57,7 @@ public:
   Data() {
     ifstream file;
 
-    string path = "test2.txt";
+    string path = "test3.txt";
     file.open(path);
     if (file.fail()) {
       cout << "no se encontro el archivo";
@@ -269,64 +269,96 @@ void viajero(const Data& d){
           }
         }
       }
-     /* if (visitados[distanciasordenadas[i][1]]<1 or visitados[distanciasordenadas[i][2]]<1)
-      {
-        cout<<"entre2"<<endl;
-        contador+=1;
-        visitados[distanciasordenadas[i][1]]+=1;
-        visitados[distanciasordenadas[i][2]]+=1;
-        distanciasrecorridas.push_back(distanciasordenadas[i]);
-      }
-      else if (contador==distancias.size()-1)
-      {
-        contador+=1;
-        visitados[distanciasordenadas[i][1]]+=1;
-        visitados[distanciasordenadas[i][2]]+=1;
-        distanciasrecorridas.push_back(distanciasordenadas[i]);
-      }*/
     }
     //cout<<"hola"<<endl;
     for (int y = 0; y < distanciasrecorridas.size(); y++)
       {
         distanciasrecorridas[y][3]=0;
       }
+
     int camino = (-1);
+    int caminopasado=(-1);
     int repeticiones=0;
     bool repetido=false;
+    bool falta=true;
     //cout<<"hola"<<endl;
-    while ((repeticiones!=(distanciasrecorridas.size())))//falta arreglar aqui
-    {
-      repeticiones++;
-      //cout<<repeticiones<<endl;
-      int l=0;
-      if (camino==-1)
+    
+      for (int ii = 0; ii < distanciasrecorridas.size(); ii++)
       {
-        while (distanciasrecorridas[l][3]!=0 )//falta arreglar aqui
+
+        
+
+        if (camino==-1)
         {
-          if (l<distanciasrecorridas.size())
+          int l=-1;
+          for (int m = 0; m < distanciasrecorridas.size(); m++)
           {
-            l++;
+            if (distanciasrecorridas[m][3]==0)
+            {
+              l=m;
+              m=distanciasrecorridas.size();
+            } 
           }
-        } 
-        camino=l;
+          camino=l;
+        }
+        if (camino!=(-1))
+        {
+          if (distanciasrecorridas[camino][3]==0 or (visitados[distanciasrecorridas[camino][1]]==2 and visitados[distanciasrecorridas[camino][2]]==2 and visitados[distanciasrecorridas[caminopasado][1]]==2))
+          {
+            distanciasrecorridas[camino][3]+=1;
+          }
+        }
+        caminopasado=camino;
+        camino=buscar(distanciasrecorridas,distanciasrecorridas[camino][2]);
+
+         for (int i = 0; i < distanciasrecorridas.size(); i++)
+        {
+          for (int j = 0; j < 4; j++)
+          {
+            cout<<distanciasrecorridas[i][j]<<",";
+          }
+          cout<<endl;
+        }
+        for (int i = 0; i < visitados.size(); i++)
+        {
+          cout<<visitados[i]<<",";
+        }
+        cout<<endl;
+        /*if (ii==distanciasrecorridas.size()-1)
+        {
+          for (int m = 0; m < distanciasrecorridas.size(); m++)
+          {
+            if (distanciasrecorridas[m][3]==0)
+            {
+              ii--;
+            }
+            else if(distanciasrecorridas[m][3]==2)
+            {
+              ii=distanciasrecorridas.size();
+            }
+          }
+        }*/
+        
+        
       }
-      distanciasrecorridas[camino][3]+=1;
-      camino=buscar(distanciasrecorridas,distanciasrecorridas[camino][2]);
-      cout<<camino<<endl;
+      cout<<"camino "<<camino<<endl;
+      if (camino!=(-1))
+        {
+          if (distanciasrecorridas[camino][3]==0 or visitados[distanciasrecorridas[camino][1]]==2 and visitados[distanciasrecorridas[camino][2]]==2)
+          {
+            distanciasrecorridas[camino][3]+=1;
+          }
+        }
+
       for (int y = 0; y < distanciasrecorridas.size(); y++)
       {
-        cout<<y<<endl;
         if (distanciasrecorridas[y][3]==2)
         {
           repetido=true;
         }
       }
-      
-    }
-    cout<<"pase el while"<<endl;
     if (repetido==true)
     {
-      cout<<"ciclo"<<endl;
       visitados[distanciasrecorridas[distanciasrecorridas.size()-1][1]]-=1;
       visitados[distanciasrecorridas[distanciasrecorridas.size()-1][2]]-=1;
       distanciasrecorridas.pop_back();
@@ -351,6 +383,11 @@ void viajero(const Data& d){
     }
     cout<<endl;
   }
+  for (int i = 0; i < visitados.size(); i++)
+  {
+    cout<<visitados[i]<<",";
+  }
+  
   
 
 }
