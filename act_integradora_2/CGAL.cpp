@@ -1,5 +1,7 @@
 // standard includes
 #include <fstream>
+#include <iostream>
+#include <vector>
 
 // includes for drawing the Voronoi Diagram
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
@@ -19,13 +21,6 @@ typedef CGAL::Voronoi_diagram_2<DT, AT, AP>                                  VD;
 // typedef for the result type of the point location
 typedef DT::Point                    DPoint;
 
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <climits>
-#include <queue>
-#include <algorithm>
 
 
 using namespace std;
@@ -156,6 +151,7 @@ public:
 void voronoi(const Data& d) {
   DT delaunay;
   delaunay.insert(d.getCentrales().begin(), d.getCentrales().end());
+  assert(delaunay.is_valid());
 
   // adaptar triangulación a diagrama de voronoi
   VD voronoi(delaunay);
@@ -172,11 +168,13 @@ void voronoi(const Data& d) {
     // iterar sobre todos los arcos
     do {
       if (ec->has_source()) {
+        // Si ese arco tiene un punto definido donde se origina, se imprime el
         std::cout << '(' << ec->source()->point().x() << ',' << ec->source()->point().y() << ')' << std::endl;
       }
     } while (++ec != ec_start);
 
     if (fit->is_unbounded()) {
+      // Si es una cara abierta:
       std::cout << "'Unbounded face' (los vértices faltantes se encuentran en el inf.)" << std::endl;
     }
     index++;
