@@ -33,8 +33,6 @@ typedef CGAL::Voronoi_diagram_2<DT, AT, AP>                                  VD;
 // typedef para el punto en el diagrama de voronoi
 typedef DT::Point                    DPoint;
 
-
-
 using namespace std;
 
 struct Point {
@@ -205,7 +203,7 @@ void connectColonies(const Data& d) {
 /**
  * Parte 2
  * Algoritmo Nearest-neighbor
- * Se corre el algoritmo para cada vértice y posteriormente se comparan los resultados par 
+ * Se corre el algoritmo para cada vértice y posteriormente se comparan los resultados para
  * obtener el mejor
  * Complejidad: O(n^3)
  * */
@@ -318,7 +316,7 @@ bool augmentingPathExists(const vector<vector<int>>& residual, vector<int>& path
  * Parte 3 (B)
  * Algoritmo Ford-Fulkerson
  * Calcula el flujo máximo en la red desde su origen hasta el último nodo
- * Complejidad: O((V + E)·f), donde (V + E) representa la complejidad de augmentingPathExist 
+ * Complejidad: O((V + E)·f), donde (V + E) representa la complejidad de augmentingPathExists
  * y f es el flujo máximo (en el peor caso, el flujo máximo aumenta en una unidad cada iteración)
  * */
 void fordFulkerson(const Data& d) {
@@ -360,8 +358,8 @@ void fordFulkerson(const Data& d) {
 /**
  * Parte 4
  * Diagrama de Voronoi
- * Para saber el área donde una central es la más cercana, se calcula el diagrama de Voronoi.
- * Una forma de hacerlo en CGAl es primero obteniendo la triangulación de Delaunay y adaptarla
+ * Para obtener el área donde cada central es la más cercana.
+ * Una forma de hacerlo en CGAl es primero obteniendo la triangulación de Delaunay y adaptar esta
  * a un diagrama de Voronoi.
  * No conocemos la complejidad del algoritmo de CGAL
  * La complejidad de un algoritmo para calcular el diagrama, como el de Fortune, es O(n·log(n))
