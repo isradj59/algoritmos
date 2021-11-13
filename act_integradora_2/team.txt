@@ -1,0 +1,16 @@
+Miembros del equipo:
+
+A01638258 Enrique Israel Delgado Joaquin
+  - principalmente algoritmo 2
+  - análisis de complejidad
+A01638129 Andres Olvera Rodriguez
+  - principalmente algoritmo 1
+  - análisis de complejidad
+A01630791 Oscar Miranda Escalante
+  - principalmente algoritmos 3 y 4
+  - análisis de complejidad
+
+12 de noviembre de 2021
+Análisis y diseño de algoritmos avanzados
+Grupo 2
+
